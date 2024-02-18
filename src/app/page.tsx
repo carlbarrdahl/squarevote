@@ -13,7 +13,9 @@ export default function Home() {
             }
           >
             <div>
-              <span className="font-semibold text-primary-600">SquareVote</span>{" "}
+              <span className="font-semibold text-primary-600">
+                {metadata.title as string}
+              </span>{" "}
               is a microapp for
             </div>
             <div>quadratic voting</div>
