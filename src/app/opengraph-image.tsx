@@ -9,7 +9,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  const fontData = await loadGoogleFont(fontFamily);
+  // const fontData = await loadGoogleFont(fontFamily);
 
   return new ImageResponse(
     (
@@ -22,13 +22,13 @@ export default async function Image() {
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: fontFamily,
-          data: fontData,
-          style: "normal",
-        },
-      ],
+      // fonts: [
+      //   {
+      //     name: fontFamily,
+      //     data: fontData,
+      //     style: "normal",
+      //   },
+      // ],
     },
   );
 }
