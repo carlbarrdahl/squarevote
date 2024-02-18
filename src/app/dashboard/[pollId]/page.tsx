@@ -39,7 +39,7 @@ export default async function DashboardPollPage({ params: { pollId } }: Props) {
             </Tr>
           </thead>
           <tbody>
-            {poll.options.map(({ name }, i) => (
+            {(poll.options as { name: string }[]).map(({ name }, i) => (
               <Tr key={i}>
                 <Td className="">{name}</Td>
                 <Td>{voteSums[i]}</Td>
