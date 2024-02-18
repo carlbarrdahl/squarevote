@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    // url      = env("DATABASE_URL") // uses connection pooling
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Poll {
+    id          String    @id @default(cuid())
+    name        String
+    description String?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    startedAt   DateTime?
+    endsAt      DateTime?
+
+    voiceCredits Int    @default(25)
+    userId       String
+
+    options Json[]
+    votes   Vote[]
+
+    @@index([name])
+}
+
+model Vote {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    pollId String
+
+    voter String
+    votes Int[] // Array of votes - index maps to options
+
+    poll Poll @relation(fields: [pollId], references: [id])
+}
