@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "./_components/ui/button";
 import { metadata } from "./layout";
 
@@ -22,11 +23,25 @@ export default function Home() {
             Create a poll, share the link, and vote with your friends.
           </p>
 
-          <div className="flex justify-center gap-2">
-            <Button as="a" href={"/dashboard/new"} size="lg" variant="primary">
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button
+              className="w-full sm:w-48"
+              as="a"
+              href={"/dashboard/new"}
+              size="lg"
+              variant="primary"
+            >
               Create Poll
             </Button>
-            <Button size="lg">How does it work?</Button>
+            <Button
+              className="w-full sm:w-48"
+              size="lg"
+              as={Link}
+              href={"https://en.wikipedia.org/wiki/Quadratic_voting"}
+              target="_blank"
+            >
+              How does it work?
+            </Button>
           </div>
         </div>
 
@@ -34,7 +49,7 @@ export default function Home() {
           <iframe
             src={`${metadata.metadataBase?.origin}/poll/clsrkyfzi0000s9u40r0z10oe`}
             width={"100%"}
-            height={300}
+            height={500}
             scrolling="no"
           />
         </div>
