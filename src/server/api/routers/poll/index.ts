@@ -19,6 +19,7 @@ export const pollRouter = createTRPCRouter({
   get: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {
+      console.log(ctx.headers);
       return getPoll(id, ctx.db);
     }),
 
@@ -28,7 +29,7 @@ export const pollRouter = createTRPCRouter({
     });
   }),
 
-  votes: protectedProcedure
+  votes: publicProcedure
     .input(z.object({ pollId: z.string() }))
     .query(({ ctx, input: { pollId } }) => {
       return ctx.db.vote.findMany({ where: { pollId } });

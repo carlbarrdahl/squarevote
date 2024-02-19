@@ -12,9 +12,6 @@ export const Th = createComponent(
 
 export const Td = createComponent(
   "td",
-  tv({ base: "p-1 sm:p-4 block sm:table-cell text-sm sm:text-base" }),
+  tv({ base: "p-2 sm:p-4 text-sm sm:text-base" }),
 );
-export const Tr = createComponent(
-  "tr",
-  tv({ base: "border-b block sm:table-row" }),
-);
+export const Tr = createComponent("tr", tv({ base: "border-b" }));

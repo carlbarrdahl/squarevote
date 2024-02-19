@@ -74,7 +74,6 @@ export function PollVote({
           .min(3, { message: "Enter a name to vote (min 3 letters)" }),
       })}
       onSubmit={({ voter }) => {
-        console.log("vote", voter, vote.votes, Object.values(vote.votes));
         castVotes.mutate({
           pollId: id,
           voter,

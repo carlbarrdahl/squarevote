@@ -3,6 +3,7 @@ import { format } from "date-fns/format";
 import { notFound } from "next/navigation";
 
 import { PageSection } from "~/app/_components/page-section";
+import { PollResults } from "~/app/_components/poll-results";
 import { Table, Td, Th, Tr } from "~/app/_components/ui/table";
 import { api } from "~/trpc/server";
 
@@ -26,28 +27,9 @@ export default async function DashboardPollPage({ params: { pollId } }: Props) {
   const votes = await api.poll.votes.query({ pollId });
   if (!poll) return notFound();
 
-  const voteSums = sumVotes(votes);
-  3;
   return (
     <PageSection title={poll.name} description="">
-      <div className="w-full space-y-2 rounded-lg border p-4">
-        <Table>
-          <thead>
-            <Tr>
-              <Th>Vote option</Th>
-              <Th>Total votes</Th>
-            </Tr>
-          </thead>
-          <tbody>
-            {(poll.options as { name: string }[]).map(({ name }, i) => (
-              <Tr key={i}>
-                <Td className="">{name}</Td>
-                <Td>{voteSums[i]}</Td>
-              </Tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+      <PollResults id={pollId} options={poll.options} />
       <div className="w-full rounded-lg border">
         <Table>
           <thead>
@@ -62,7 +44,9 @@ export default async function DashboardPollPage({ params: { pollId } }: Props) {
               votes.map((vote) => (
                 <Tr key={vote.id}>
                   <Td>{vote.voter}</Td>
-                  <Td>{format(vote.createdAt, "yyyy-MM-dd HH:mm")}</Td>
+                  <Td className="truncate">
+                    {format(vote.createdAt, "yyyy-MM-dd HH:mm")}
+                  </Td>
                   <Td>{vote.votes.join(", ")}</Td>
                 </Tr>
               ))

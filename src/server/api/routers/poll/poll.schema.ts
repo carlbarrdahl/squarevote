@@ -12,3 +12,4 @@ export const ZPollCreateInputSchema = z.object({
 });
 
 export type TPollCreateInputSchema = z.infer<typeof ZPollCreateInputSchema>;
+export type TOption = z.infer<typeof ZOptionSchema>;
