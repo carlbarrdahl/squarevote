@@ -67,7 +67,7 @@ export default function RootLayout({
             </footer>
           </main>
         </body>
-        {/* <Analytics /> */}
+        <Analytics />
       </html>
     </ClerkProvider>
   );
