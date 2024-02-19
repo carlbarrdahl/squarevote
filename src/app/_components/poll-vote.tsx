@@ -133,9 +133,7 @@ export function PollVote({
         Voice credits: {creditsLeft}
       </div>
 
-      {castVotes.isSuccess ? (
-        <div>Voted!</div>
-      ) : (
+      {castVotes.isSuccess ? null : (
         <div className="flex justify-end gap-2">
           <Fieldset name="voter">
             <Input placeholder="Your name..." />
