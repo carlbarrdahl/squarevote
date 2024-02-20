@@ -85,7 +85,6 @@ export function PollVote({
         {options.map(({ name }, i) => {
           const id = String(i);
           const qty = vote.votes[id] ?? 0;
-          const voteCost = calcCost(qty - 1);
 
           return (
             <div key={id} className="flex h-16 items-center gap-2 p-4">
@@ -97,7 +96,7 @@ export function PollVote({
                   <div>
                     <Button
                       className="size-10 rounded-full"
-                      disabled={qty === 0}
+                      disabled={calcCost(qty + 1) > creditsLeft && qty <= 0}
                       onClick={() => vote.dec(id)}
                     >
                       −
@@ -106,6 +105,7 @@ export function PollVote({
                   <div
                     className={cn("w-4 text-center", {
                       ["font-bold"]: qty,
+                      ["text-red-700"]: qty < 0,
                     })}
                   >
                     {qty}
@@ -113,7 +113,7 @@ export function PollVote({
                   <div>
                     <Button
                       className="size-10 rounded-full"
-                      disabled={voteCost > creditsLeft}
+                      disabled={calcCost(qty - 1) > creditsLeft && qty >= 0}
                       onClick={() => vote.inc(id)}
                     >
                       ＋
