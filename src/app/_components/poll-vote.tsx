@@ -3,7 +3,6 @@ import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/app/_components/ui/button";
 
-import { useLocalStorage } from "react-use";
 import { cn } from "~/utils/cn";
 import { Input } from "./ui/form/inputs";
 import { Form } from "./ui/form";
@@ -53,21 +52,12 @@ export function PollVote({
   voiceCredits: number;
 }) {
   const vote = useVote(options);
-  const [stored, storeLocally] = useLocalStorage<{ voter: string | undefined }>(
-    "voter",
-    { voter: undefined },
-  );
-  const castVotes = api.poll.vote.useMutation({
-    onSuccess: ({ voter }) => {
-      storeLocally({ voter });
-    },
-  });
+  const castVotes = api.poll.vote.useMutation({});
   const creditsSpent = calcSpent(vote.votes);
   const creditsLeft = voiceCredits - creditsSpent;
 
   return (
     <Form
-      defaultValues={{ ...stored }}
       schema={z.object({
         voter: z
           .string()
