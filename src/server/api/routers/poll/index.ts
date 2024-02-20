@@ -19,7 +19,6 @@ export const pollRouter = createTRPCRouter({
   get: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {
-      console.log(ctx.headers);
       return getPoll(id, ctx.db);
     }),
 

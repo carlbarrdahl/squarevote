@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://squarevote.vercel.app"),
+  metadataBase: new URL("https://squarevote.app"),
   title: "SquareVote",
   description: "Quadratic Voting for friends",
   applicationName: "SquareVote",
