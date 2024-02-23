@@ -10,16 +10,13 @@ export default function Home() {
         <div className="py-8 sm:py-8">
           <h1
             className={
-              "text-center text-4xl leading-snug tracking-wide sm:text-6xl"
+              "text-balance text-center text-4xl leading-snug tracking-wide sm:text-6xl"
             }
           >
-            <div>
-              <span className="font-semibold text-primary-600">
-                {metadata.title as string}
-              </span>{" "}
-              for
+            <div className="">
+              <span className="font-semibold text-primary-600">SquareVote</span>{" "}
+              is a microapp for quadratic voting
             </div>
-            <div>quadratic voting</div>
           </h1>
 
           <p className="py-4 text-center text-lg sm:py-12 sm:text-3xl sm:font-medium">
