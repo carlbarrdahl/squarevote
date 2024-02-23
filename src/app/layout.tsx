@@ -16,8 +16,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://squarevote.app"),
-  title: "SquareVote",
-  description: "Quadratic Voting for friends",
+  title: "SquareVote: Empower Every Voice, Weigh Every Opinion",
+  description:
+    "Join the quadratic voting movement with SquareVote. Our intuitive app makes complex decisions simple and democratic for organizations and groups.",
   applicationName: "SquareVote",
   referrer: "origin-when-cross-origin",
   keywords: [
