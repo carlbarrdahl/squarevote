@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Button } from "./_components/ui/button";
 import { metadata } from "./layout";
+import { HowDoesItWork } from "./_components/how-it-works";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-screen-xl flex-1">
+    <div className="mx-auto w-full max-w-screen-md flex-1">
       <div className="flex flex-1 flex-col space-y-4 px-8 py-6">
-        <div className="py-8 sm:py-24">
+        <div className="py-8 sm:py-8">
           <h1
             className={
               "text-center text-4xl leading-snug tracking-wide sm:text-6xl"
@@ -46,6 +47,8 @@ export default function Home() {
             </Button>
           </div>
         </div>
+
+        <HowDoesItWork />
 
         <div className="rounded border">
           <iframe

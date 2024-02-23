@@ -15,7 +15,7 @@ type Option = {
 };
 export function useVote(options: Option[]) {
   const [votes, setVotes] = useState(
-    options.reduce(
+    options?.reduce(
       (acc, _, i) => ({ ...acc, [i]: 0 }),
       {} as Record<string, number>,
     ),
@@ -36,7 +36,7 @@ function calcCost(votes: number) {
   return votes * votes;
 }
 function calcSpent(votes: Record<string, number>) {
-  return Object.values(votes).reduce(
+  return Object.values(votes ?? {}).reduce(
     (sum, vote) => sum + calcCost(vote ?? 0),
     0,
   );
@@ -72,7 +72,7 @@ export function PollVote({
       }}
     >
       <div className="divide-y rounded-lg border">
-        {options.map(({ name }, i) => {
+        {options?.map(({ name }, i) => {
           const id = String(i);
           const qty = vote.votes[id] ?? 0;
 
