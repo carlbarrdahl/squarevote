@@ -5,7 +5,7 @@ import { HowDoesItWork } from "./_components/how-it-works";
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-screen-md flex-1">
+    <div className="mx-auto w-full max-w-screen-lg flex-1">
       <div className="flex flex-1 flex-col space-y-4 px-8 py-6">
         <div className="py-8 sm:py-8">
           <h1
@@ -17,13 +17,13 @@ export default function Home() {
               <span className="font-semibold text-primary-600">
                 {metadata.title as string}
               </span>{" "}
-              is a microapp for
+              for
             </div>
             <div>quadratic voting</div>
           </h1>
 
-          <p className="py-4 text-center text-xl sm:py-16 sm:text-2xl">
-            Create a poll, share the link, and vote with your friends.
+          <p className="py-4 text-center text-lg sm:py-12 sm:text-3xl sm:font-medium">
+            Empower Every Voice, Weigh Every Opinion
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">

@@ -9,18 +9,21 @@ export function HowDoesItWork() {
       <summary className="cursor-pointer p-2 text-lg">
         What is Quadratic Voting?
       </summary>
-      <div className="rounded border p-4">
+      <div className="rounded border p-4 text-xl">
         <P>
           Quadratic voting is a democratic system where each additional vote
-          costs more, calculated by squaring the number of votes. This
-          encourages voters to prioritize issues they care about most, as
+          costs more, calculated by{" "}
+          <span className="underline decoration-1 underline-offset-2">
+            squaring the number of votes
+          </span>
+          . This encourages voters to prioritize issues they care about most, as
           casting multiple votes for one option becomes increasingly expensive.
           It aims to balance majority rule with minority protection, giving a
           more nuanced picture of public opinion compared to one-person-one-vote
           systems.
         </P>
 
-        <div className="mx-auto max-w-lg divide-y rounded border">
+        <div className="mx-auto mb-6 max-w-lg divide-y rounded border text-base">
           {Array(3)
             .fill(0)
             .map((_, i) => {
@@ -67,7 +70,7 @@ export function HowDoesItWork() {
               );
             })}
         </div>
-        <P>
+        <P className="text-base">
           Read more at:{" "}
           <A
             href={"https://en.wikipedia.org/wiki/Quadratic_voting"}

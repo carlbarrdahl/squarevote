@@ -4,5 +4,5 @@ import { createComponent } from ".";
 
 export const A = createComponent(
   Link,
-  tv({ base: "underline underline-offset-2" })
+  tv({ base: "underline underline-offset-2 hover:text-gray-700" }),
 );
