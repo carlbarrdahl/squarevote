@@ -27,6 +27,8 @@ model Poll {
     options Json[]
     votes   Vote[]
 
+    group String[]
+
     @@index([name])
 }
 
@@ -35,7 +37,8 @@ model Vote {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    pollId String
+    pollId    String
+    nullifier String?
 
     voter String
     votes Int[] // Array of votes - index maps to options
