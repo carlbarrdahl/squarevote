@@ -4,6 +4,7 @@ import type { Vote } from "@prisma/client";
 import type { TOption } from "~/server/api/routers/poll/poll.schema";
 import { Table, Td, Th, Tr } from "~/app/_components/ui/table";
 import { api } from "~/trpc/react";
+import { useMemo } from "react";
 
 function sumVotes(voteEntries: Vote[] = []): Record<string, number> {
   const voteSums: Record<string, number> = {};
@@ -30,6 +31,14 @@ export function PollResults({
 
   const voteSums = sumVotes(votes.data);
 
+  const sortedResults = useMemo(
+    () =>
+      options
+        .map(({ name }, i) => ({ name, votes: voteSums[i] ?? 0 }))
+        .sort((a, b) => b.votes - a.votes),
+    [options, voteSums],
+  );
+
   return (
     <div className="w-full rounded-lg border">
       <Table>
@@ -40,10 +49,10 @@ export function PollResults({
           </Tr>
         </thead>
         <tbody>
-          {options.map(({ name }, i) => (
+          {sortedResults.map(({ name, votes }, i) => (
             <Tr key={i}>
               <Td className="">{name}</Td>
-              <Td>{voteSums[i]}</Td>
+              <Td>{votes}</Td>
             </Tr>
           ))}
         </tbody>
