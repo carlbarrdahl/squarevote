@@ -8,6 +8,7 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 import { ZPollCreateInputSchema } from "./poll.schema";
+import { verifyProof } from "@semaphore-protocol/proof";
 
 async function getPoll(id: string, db: PrismaClient) {
   return (await db.poll.findFirst({
@@ -34,15 +35,45 @@ export const pollRouter = createTRPCRouter({
       return ctx.db.vote.findMany({ where: { pollId } });
     }),
 
+  register: publicProcedure
+    .input(z.object({ id: z.string(), commitment: z.string() }))
+    .mutation(async ({ ctx, input: { id, commitment } }) => {
+      const group = await ctx.db.poll
+        .findFirst({ where: { id }, select: { group: true } })
+        .then((r) => r?.group ?? []);
+
+      if (!group?.includes(commitment)) {
+        group.push(commitment);
+        await ctx.db.poll.update({ where: { id }, data: { group } });
+      }
+      return group;
+    }),
   vote: publicProcedure
     .input(
       z.object({
         pollId: z.string(),
         voter: z.string().min(3),
         votes: z.array(z.number()),
+        proof: z.object({
+          merkleTreeDepth: z.number(),
+          merkleTreeRoot: z.string(),
+          nullifier: z.string(),
+          message: z.string(),
+          scope: z.string(),
+          points: z.tuple([
+            z.string(),
+            z.string(),
+            z.string(),
+            z.string(),
+            z.string(),
+            z.string(),
+            z.string(),
+            z.string(),
+          ]),
+        }),
       }),
     )
-    .mutation(async ({ ctx, input: { pollId, voter, votes } }) => {
+    .mutation(async ({ ctx, input: { pollId, proof, voter, votes } }) => {
       const poll = await getPoll(pollId, ctx.db);
       if ((poll?.options).length !== votes.length) {
         throw new TRPCError({
@@ -56,7 +87,33 @@ export const pollRouter = createTRPCRouter({
           message: "Votes must not exceed voice credits",
         });
       }
-      return ctx.db.vote.create({ data: { voter, votes, pollId } });
+      if (
+        await ctx.db.vote.findFirst({
+          where: { pollId, nullifier: proof.nullifier },
+        })
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Already voted",
+        });
+      }
+      console.log("verifying proof");
+
+      // TODO: why does it hang here?
+      if (!(await verifyProof(proof))) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Invalid zk proof",
+        });
+      }
+
+      console.log("proof verified!");
+
+      // TODO: remove voter from Vote in schema + poll-vote component (nullifier is used as user id)
+
+      return ctx.db.vote.create({
+        data: { voter, votes, pollId, nullifier: proof.nullifier },
+      });
     }),
 
   delete: protectedProcedure
