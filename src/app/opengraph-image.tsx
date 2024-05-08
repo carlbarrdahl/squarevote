@@ -14,10 +14,10 @@ export default async function Image() {
   return new ImageResponse(
     (
       <div tw="bg-slate-900 w-full h-full flex flex-col justify-center items-center">
-        <div tw="text-[140px] font-bold text-white">
-          {metadata.title as string}
+        <div tw="text-[140px] font-bold text-white">SquareVote</div>
+        <div tw="text-4xl text-blue-200">
+          Empower Every Voice, Weigh Every Opinion
         </div>
-        <div tw="text-4xl text-blue-200">{metadata.description!}</div>
       </div>
     ),
     {

@@ -25,7 +25,7 @@ export default async function Image(props: { params: { pollId: string } }) {
     (
       <div tw="bg-slate-900 w-full h-full flex flex-col justify-center items-center">
         <div tw="text-4xl font-bold text-blue-200 absolute top-8 left-8">
-          {metadata.title as string}
+          SquareVote
         </div>
         <div tw="flex flex-col">
           <div tw="text-[64px] mb-2 text-white">{poll.name}</div>
