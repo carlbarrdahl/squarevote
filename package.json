@@ -14,8 +14,12 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.7",
+    "@ethersproject/strings": "^5.7.0",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.6.0",
+    "@semaphore-protocol/group": "^4.0.0-beta.1",
+    "@semaphore-protocol/identity": "^4.0.0-beta.1",
+    "@semaphore-protocol/proof": "^4.0.0-beta.1",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.43.6",
