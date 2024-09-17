@@ -72,10 +72,10 @@ export function PollForm({
       >
         <Fieldset name="voiceCredits" setValueAs={(v: string) => Number(v)}>
           <Select>
-            <option value={100}>100</option>
-            <option value={25}>25</option>
-            <option value={16}>16</option>
-            <option value={9}>9</option>
+            <option value={99}>99</option>
+            <option value={24}>24</option>
+            <option value={15}>15</option>
+            <option value={8}>8</option>
           </Select>
 
           {/* <Input type="number" /> */}
