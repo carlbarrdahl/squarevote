@@ -9,6 +9,7 @@ import { Form } from "./ui/form";
 import { z } from "zod";
 import { Fieldset } from "./ui/form/fieldset";
 import { api } from "~/trpc/react";
+import { Markdown } from "./ui/markdown";
 
 type Option = {
   name: string;
@@ -77,9 +78,9 @@ export function PollVote({
           const qty = vote.votes[id] ?? 0;
 
           return (
-            <div key={id} className="flex h-16 items-center gap-2 p-4">
+            <div key={id} className="flex items-center gap-2 p-4">
               <div className="flex-1">
-                <h3 className="font-semibold">{name}</h3>
+                <Markdown>{name}</Markdown>
               </div>
               <div className="flex justify-between">
                 <div className="flex items-center gap-1 pl-1 text-xs">
@@ -131,7 +132,7 @@ export function PollVote({
           <div>
             <Button
               type="submit"
-              disabled={creditsLeft < 0}
+              disabled={creditsLeft < 0 || castVotes.isLoading}
               variant="primary"
               className="w-48"
               icon={CheckCircle}

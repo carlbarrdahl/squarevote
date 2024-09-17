@@ -51,16 +51,7 @@ export default function Home() {
           <iframe
             src={`${metadata.metadataBase?.origin}/poll/clszyh3660000128dgr7r2i12`}
             width={"100%"}
-            height={500}
-            scrolling="no"
-          />
-        </div>
-
-        <div className="rounded border">
-          <iframe
-            src={`${metadata.metadataBase?.origin}/poll/clszyh3660000128dgr7r2i12/results`}
-            width={"100%"}
-            height={400}
+            height={1000}
             scrolling="no"
           />
         </div>

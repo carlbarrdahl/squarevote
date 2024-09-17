@@ -123,7 +123,12 @@ function PollOptions() {
             <Fieldset name={`options.${i}.name`}>
               <Input placeholder={`Option ${i + 1}`} />
             </Fieldset>
-            <Button variant="ghost" icon={Trash} onClick={() => remove(i)} />
+            <Button
+              variant="ghost"
+              icon={Trash}
+              tabIndex={-1}
+              onClick={() => remove(i)}
+            />
           </div>
         ))}
       </div>

@@ -5,6 +5,7 @@ import type { TOption } from "~/server/api/routers/poll/poll.schema";
 import { Table, Td, Th, Tr } from "~/app/_components/ui/table";
 import { api } from "~/trpc/react";
 import { useMemo } from "react";
+import { Markdown } from "./ui/markdown";
 
 function sumVotes(voteEntries: Vote[] = []): Record<string, number> {
   const voteSums: Record<string, number> = {};
@@ -45,14 +46,16 @@ export function PollResults({
         <thead>
           <Tr>
             <Th>Vote option</Th>
-            <Th>Total votes</Th>
+            <Th className="w-32">Total votes</Th>
           </Tr>
         </thead>
         <tbody>
           {sortedResults.map(({ name, votes }, i) => (
             <Tr key={i}>
-              <Td className="">{name}</Td>
-              <Td>{votes}</Td>
+              <Td className="w-full">
+                <Markdown>{name}</Markdown>
+              </Td>
+              <Td className={"text-center"}>{votes}</Td>
             </Tr>
           ))}
         </tbody>
