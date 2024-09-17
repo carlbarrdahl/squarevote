@@ -51,7 +51,7 @@ export default function Home() {
           <iframe
             src={`${metadata.metadataBase?.origin}/poll/clszyh3660000128dgr7r2i12`}
             width={"100%"}
-            height={1000}
+            height={1300}
             scrolling="no"
           />
         </div>
