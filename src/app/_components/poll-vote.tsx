@@ -1,6 +1,11 @@
 "use client";
 import { CheckCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Group } from "@semaphore-protocol/group";
+
+import { Identity } from "@semaphore-protocol/identity";
+import { generateProof, verifyProof } from "@semaphore-protocol/proof";
+
 import { Button } from "~/app/_components/ui/button";
 
 import { cn } from "~/utils/cn";
@@ -53,10 +58,13 @@ export function PollVote({
   voiceCredits: number;
 }) {
   const vote = useVote(options);
+
   const castVotes = api.poll.vote.useMutation({});
+  const register = api.poll.register.useMutation({});
   const creditsSpent = calcSpent(vote.votes);
   const creditsLeft = voiceCredits - creditsSpent;
 
+  const error = castVotes.error ?? register.error;
   return (
     <Form
       schema={z.object({
@@ -65,11 +73,31 @@ export function PollVote({
           .min(3, { message: "Enter a name to vote (min 3 letters)" }),
       })}
       onSubmit={({ voter }) => {
-        castVotes.mutate({
-          pollId: id,
-          voter,
-          votes: Object.values(vote.votes),
-        });
+        const identity = new Identity(voter); // Replace with signed message from Metamask or BankID or Clerk user.id
+        register.mutate(
+          { id, commitment: identity.commitment },
+          {
+            async onSuccess(group) {
+              const zkGroup = new Group(group);
+              const voteMessage = JSON.stringify(Object.values(vote.votes));
+              const proof = await generateProof(
+                identity,
+                zkGroup,
+                voteMessage /* votes */,
+                id /* pollId */,
+              );
+
+              console.log(proof);
+
+              castVotes.mutate({
+                pollId: id,
+                voter,
+                proof,
+                votes: Object.values(vote.votes),
+              });
+            },
+          },
+        );
       }}
     >
       <div className="divide-y rounded-lg border">
@@ -142,6 +170,10 @@ export function PollVote({
           </div>
         </div>
       )}
+
+      <div className="py-4 text-center text-sm text-red-600">
+        {error?.message}
+      </div>
     </Form>
   );
 }
